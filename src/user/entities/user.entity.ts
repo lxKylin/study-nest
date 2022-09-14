@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm';
 
 // @Entity()装饰器自动从所有类生成一个SQL表，以及他们包含的元数据
 // @Entity('users') // sql表名为users
@@ -15,4 +21,10 @@ export class User {
   // @Column('json', { nullable: true }) json格式且可为空
   @Column()
   password: string;
+
+  @CreateDateColumn()
+  createAt: Date;
+
+  @UpdateDateColumn()
+  updateAt: Date;
 }
