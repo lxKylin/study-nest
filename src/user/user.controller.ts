@@ -5,7 +5,8 @@ import {
   Body,
   Patch,
   Param,
-  Delete
+  Delete,
+  Query
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -31,9 +32,14 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  // @Get()
+  // findAll() {
+  //   return this.userService.findAll();
+  // }
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  findAllByQuery(@Query() paginationsQuery) {
+    const { limit, offset } = paginationsQuery;
+    return `This action returns all user Limit:${limit}, Offset:${offset}`;
   }
 
   @Get(':id')
