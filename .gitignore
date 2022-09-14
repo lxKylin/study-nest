@@ -16,6 +16,8 @@ lerna-debug.log*
 
 .vscode
 
+.env
+
 # Tests
 /coverage
 /.nyc_output
