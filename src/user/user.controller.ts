@@ -6,7 +6,9 @@ import {
   Patch,
   Param,
   Delete,
-  Query
+  Query,
+  UseInterceptors,
+  ClassSerializerInterceptor
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -26,6 +28,8 @@ export class UserController {
   @ApiOperation({
     summary: '添加用户' // 接口描述信息
   })
+  // 请求返回数据时将密码这个字段隐藏
+  @UseInterceptors(ClassSerializerInterceptor)
   // @Body是指获取到（http请求）客户端传递过来的body体中的数据，将数据给createUserDto这个变量，CreateUserDto是TS类型约束
   // createUserDto可自定义
   create(@Body() createUserDto: CreateUserDto) {

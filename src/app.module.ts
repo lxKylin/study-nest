@@ -3,16 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 // 环境配置相关
 import { ConfigModule } from '@nestjs/config';
 
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true
-    }),
+    ConfigModule.forRoot(),
     UserModule,
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
@@ -27,9 +25,9 @@ import { AuthModule } from './auth/auth.module';
         synchronize: true // 开启同步，生产中要禁止
       })
     }),
-    AuthModule
+    AuthModule,
+    CommonModule
   ],
-  controllers: [AppController],
   providers: [AppService]
 })
 export class AppModule {}
