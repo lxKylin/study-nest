@@ -9,21 +9,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { LoginMiddleware } from '@/middleware/login.middleware';
 import { UserMiddleware } from '@/middleware/user.middleware';
-import { UserService } from '@/user/user.service';
-import { User } from '@/user/entities/user.entity';
+import { HandlePasswordMiddleware } from '@/middleware/handlePassword.middleware';
+import { UserService } from '@/module/user/user.service';
+import { User } from '@/module/user/entities/user.entity';
 
 @Module({
   imports: [ConfigModule, TypeOrmModule.forFeature([User])],
   providers: [UserService]
 })
 export class CommonModule implements NestModule {
-  async configure(consumer: MiddlewareConsumer) {
-    // 将中间件绑定到以user为前缀的路由
-    await consumer
+  configure(consumer: MiddlewareConsumer) {
+    consumer
       .apply(LoginMiddleware)
       .forRoutes({ path: 'auth', method: RequestMethod.POST });
-    await consumer
-      .apply(UserMiddleware)
+    consumer
+      .apply(UserMiddleware, HandlePasswordMiddleware)
       .forRoutes({ path: 'user', method: RequestMethod.POST });
+    consumer
+      .apply(HandlePasswordMiddleware)
+      .forRoutes({ path: 'user', method: RequestMethod.PATCH }, 'user/(.*)');
   }
 }

@@ -10,10 +10,10 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { LocalAuthGuard } from '@/auth/guards/local-auth.guard';
-import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
-import { AuthService } from '@/auth/auth.service';
-import { CreateUserDto } from '@/user/dto/create-user.dto';
+import { LocalAuthGuard } from '@/module/auth/guards/local-auth.guard';
+import { JwtAuthGuard } from '@/module/auth/guards/jwt-auth.guard';
+import { AuthService } from '@/module/auth/auth.service';
+import { CreateUserDto } from '@/module/user/dto/create-user.dto';
 
 @ApiTags('授权模块')
 @Controller('auth')

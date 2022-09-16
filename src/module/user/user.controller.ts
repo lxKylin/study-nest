@@ -8,13 +8,16 @@ import {
   Delete,
   Query,
   UseInterceptors,
-  ClassSerializerInterceptor
+  ClassSerializerInterceptor,
+  UseGuards
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
+import { JwtAuthGuard } from '@/module/auth/guards/jwt-auth.guard';
 
 // 设置swagger文档标签分类
 @ApiTags('用户模块')
@@ -36,27 +39,35 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.userService.findAll();
-  // }
-  @Get()
-  findAllByQuery(@Query() paginationsQuery) {
-    const { limit, offset } = paginationsQuery;
-    return `This action returns all user Limit:${limit}, Offset:${offset}`;
+  @Get('list')
+  @UseGuards(JwtAuthGuard) // 验证token
+  @ApiOperation({
+    summary: '获取user列表'
+  })
+  findAll(@Query() paginationsQuery: PaginationQueryDto) {
+    return this.userService.getUserList(paginationsQuery);
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: '根据id获取user'
+  })
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.userService.findOneById(+id);
   }
 
   @Patch(':id')
+  @ApiOperation({
+    summary: '根据id修改user'
+  })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
+  @ApiOperation({
+    summary: '根据id删除user'
+  })
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }

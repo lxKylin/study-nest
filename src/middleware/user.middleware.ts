@@ -1,10 +1,9 @@
 import { Injectable, NestMiddleware, NotFoundException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 
-import { md5password } from '@/utils/password-handle';
 import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
 import { BusinessException } from '@/common/exceptions/business.exception';
-import { UserService } from '@/user/user.service';
+import { UserService } from '@/module/user/user.service';
 
 @Injectable()
 export class UserMiddleware implements NestMiddleware {
@@ -21,8 +20,6 @@ export class UserMiddleware implements NestMiddleware {
         code: BUSINESS_ERROR_CODE.USER_ALREADY_EXISTS,
         message: '用户已存在！'
       });
-    } else {
-      req.body.password = md5password(password);
     }
     next();
   }
