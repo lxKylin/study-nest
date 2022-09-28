@@ -15,6 +15,8 @@ import { CreateAboutDto } from './dto/create-about.dto';
 import { UpdateAboutDto } from './dto/update-about.dto';
 
 import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
+import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
+import { BusinessException } from '@/common/exceptions/business.exception';
 
 @ApiTags('关于模块')
 @Controller('about')
@@ -26,7 +28,14 @@ export class AboutController {
     summary: '添加about' // 接口描述信息
   })
   create(@Body() createAboutDto: CreateAboutDto) {
-    return this.aboutService.create(createAboutDto);
+    try {
+      return this.aboutService.create(createAboutDto);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: 'about添加失败'
+      });
+    }
   }
 
   @Get('list')
@@ -34,7 +43,14 @@ export class AboutController {
     summary: '获取about列表' // 接口描述信息
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
-    return this.aboutService.getAboutList(paginationsQuery);
+    try {
+      return this.aboutService.getAboutList(paginationsQuery);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '获取about列表失败'
+      });
+    }
   }
 
   @Get(':id')
@@ -42,7 +58,14 @@ export class AboutController {
     summary: '根据id获取about' // 接口描述信息
   })
   findOne(@Param('id') id: string) {
-    return this.aboutService.findOneById(+id);
+    try {
+      return this.aboutService.findOneById(+id);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '获取about失败'
+      });
+    }
   }
 
   @Patch(':id')
@@ -50,7 +73,14 @@ export class AboutController {
     summary: '根据id修改about' // 接口描述信息
   })
   update(@Param('id') id: string, @Body() updateAboutDto: UpdateAboutDto) {
-    return this.aboutService.update(+id, updateAboutDto);
+    try {
+      return this.aboutService.update(+id, updateAboutDto);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '修改about失败'
+      });
+    }
   }
 
   @Delete(':id')
@@ -58,6 +88,13 @@ export class AboutController {
     summary: '根据id删除about' // 接口描述信息
   })
   remove(@Param('id') id: string) {
-    return this.aboutService.remove(+id);
+    try {
+      return this.aboutService.remove(+id);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '删除about失败'
+      });
+    }
   }
 }

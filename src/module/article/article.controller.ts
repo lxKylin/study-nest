@@ -14,6 +14,8 @@ import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
+import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
+import { BusinessException } from '@/common/exceptions/business.exception';
 
 @ApiTags('文章模块')
 @Controller('article')
@@ -25,7 +27,14 @@ export class ArticleController {
     summary: '添加文章'
   })
   create(@Body() createArticleDto: CreateArticleDto) {
-    return this.articleService.create(createArticleDto);
+    try {
+      return this.articleService.create(createArticleDto);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '文章添加失败'
+      });
+    }
   }
 
   @Get('list')
@@ -33,7 +42,14 @@ export class ArticleController {
     summary: '获取文章列表'
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
-    return this.articleService.getArticleList(paginationsQuery);
+    try {
+      return this.articleService.getArticleList(paginationsQuery);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '获取文章列表失败'
+      });
+    }
   }
 
   @Get(':id')
@@ -41,7 +57,14 @@ export class ArticleController {
     summary: '根据id获得文章'
   })
   findOne(@Param('id') id: string) {
-    return this.articleService.findOneById(+id);
+    try {
+      return this.articleService.findOneById(+id);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '获取文章失败'
+      });
+    }
   }
 
   @Patch(':id')
@@ -49,7 +72,14 @@ export class ArticleController {
     summary: '根据id更新文章'
   })
   update(@Param('id') id: string, @Body() updateArticleDto: UpdateArticleDto) {
-    return this.articleService.update(+id, updateArticleDto);
+    try {
+      return this.articleService.update(+id, updateArticleDto);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '修改文章失败'
+      });
+    }
   }
 
   @Delete(':id')
@@ -57,6 +87,13 @@ export class ArticleController {
     summary: '根据id删除文章'
   })
   remove(@Param('id') id: string) {
-    return this.articleService.remove(+id);
+    try {
+      return this.articleService.remove(+id);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '删除文章失败'
+      });
+    }
   }
 }

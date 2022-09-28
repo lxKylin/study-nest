@@ -18,6 +18,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
 import { JwtAuthGuard } from '@/module/auth/guards/jwt-auth.guard';
+import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
+import { BusinessException } from '@/common/exceptions/business.exception';
 
 // 设置swagger文档标签分类
 @ApiTags('用户模块')
@@ -36,7 +38,14 @@ export class UserController {
   // @Body是指获取到（http请求）客户端传递过来的body体中的数据，将数据给createUserDto这个变量，CreateUserDto是TS类型约束
   // createUserDto可自定义
   create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    try {
+      return this.userService.create(createUserDto);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '用户添加失败'
+      });
+    }
   }
 
   @Get('list')
@@ -45,7 +54,14 @@ export class UserController {
     summary: '获取user列表'
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
-    return this.userService.getUserList(paginationsQuery);
+    try {
+      return this.userService.getUserList(paginationsQuery);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '获取用户列表失败'
+      });
+    }
   }
 
   @Get(':id')
@@ -53,7 +69,14 @@ export class UserController {
     summary: '根据id获取user'
   })
   findOne(@Param('id') id: string) {
-    return this.userService.findOneById(+id);
+    try {
+      return this.userService.findOneById(+id);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '获取用户失败'
+      });
+    }
   }
 
   @Patch(':id')
@@ -61,7 +84,14 @@ export class UserController {
     summary: '根据id修改user'
   })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    try {
+      return this.userService.update(+id, updateUserDto);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '修改用户失败'
+      });
+    }
   }
 
   @Delete(':id')
@@ -69,6 +99,13 @@ export class UserController {
     summary: '根据id删除user'
   })
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    try {
+      return this.userService.remove(+id);
+    } catch (error) {
+      throw new BusinessException({
+        code: BUSINESS_ERROR_CODE.COMMON,
+        message: '删除用户失败'
+      });
+    }
   }
 }
