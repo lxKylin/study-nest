@@ -8,6 +8,7 @@ import { UserModule } from './module/user/user.module';
 import { AuthModule } from './module/auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { AboutModule } from './module/about/about.module';
+import { ArticleModule } from './module/article/article.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { AboutModule } from './module/about/about.module';
     }),
     AuthModule,
     CommonModule,
-    AboutModule
+    AboutModule,
+    ArticleModule
   ],
   providers: [AppService]
 })

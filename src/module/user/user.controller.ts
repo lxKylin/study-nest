@@ -40,7 +40,7 @@ export class UserController {
   }
 
   @Get('list')
-  @UseGuards(JwtAuthGuard) // 验证token
+  // @UseGuards(JwtAuthGuard) // 验证token
   @ApiOperation({
     summary: '获取user列表'
   })

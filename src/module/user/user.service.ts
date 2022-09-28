@@ -13,6 +13,7 @@ export class UserService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>
   ) {}
+
   async create(createUserDto: CreateUserDto) {
     const user = await this.userRepository.create({ ...createUserDto });
     return this.userRepository.save(user);

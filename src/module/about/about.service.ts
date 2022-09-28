@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 
@@ -14,28 +14,36 @@ export class AboutService {
     private readonly aboutRepository: Repository<About>
   ) {}
 
-  create(createAboutDto: CreateAboutDto) {
-    const about = this.aboutRepository.create({ ...createAboutDto });
-    return this.aboutRepository.save(about);
+  async create(createAboutDto: CreateAboutDto) {
+    const about = await this.aboutRepository.create({ ...createAboutDto });
+    return await this.aboutRepository.save(about);
   }
 
-  getAboutList(paginationsQuery: PaginationQueryDto) {
+  async getAboutList(paginationsQuery: PaginationQueryDto) {
     const { limit, offset } = paginationsQuery;
-    return this.aboutRepository.find({
+    return await this.aboutRepository.find({
       skip: offset,
       take: limit
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} about`;
+  async findOneById(id: number) {
+    return await this.aboutRepository.findOneBy({ id });
   }
 
-  update(id: number, updateAboutDto: UpdateAboutDto) {
-    return `This action updates a #${id} about`;
+  async update(id: number, updateAboutDto: UpdateAboutDto) {
+    const about = await this.aboutRepository.preload({ id, ...updateAboutDto });
+    if (!about) {
+      throw new NotFoundException(`${id} not found`);
+    }
+    return await this.aboutRepository.save(about);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} about`;
+  async remove(id: number) {
+    const about = await this.aboutRepository.findOneBy({ id });
+    if (!about) {
+      throw new NotFoundException(`${id} not found`);
+    }
+    return await this.aboutRepository.remove(about);
   }
 }

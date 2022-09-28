@@ -38,16 +38,25 @@ export class AboutController {
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: '根据id获取about' // 接口描述信息
+  })
   findOne(@Param('id') id: string) {
-    return this.aboutService.findOne(+id);
+    return this.aboutService.findOneById(+id);
   }
 
   @Patch(':id')
+  @ApiOperation({
+    summary: '根据id修改about' // 接口描述信息
+  })
   update(@Param('id') id: string, @Body() updateAboutDto: UpdateAboutDto) {
     return this.aboutService.update(+id, updateAboutDto);
   }
 
   @Delete(':id')
+  @ApiOperation({
+    summary: '根据id删除about' // 接口描述信息
+  })
   remove(@Param('id') id: string) {
     return this.aboutService.remove(+id);
   }
