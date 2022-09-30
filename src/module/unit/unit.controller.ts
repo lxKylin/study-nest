@@ -10,41 +10,41 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { PersonService } from './person.service';
-import { CreatePersonDto } from './dto/create-person.dto';
-import { UpdatePersonDto } from './dto/update-person.dto';
+import { UnitService } from './unit.service';
+import { CreateUnitDto } from './dto/create-unit.dto';
+import { UpdateUnitDto } from './dto/update-unit.dto';
 
 import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
 import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
 import { BusinessException } from '@/common/exceptions/business.exception';
 
-@ApiTags('个人荣誉模块')
-@Controller('person')
-export class PersonController {
-  constructor(private readonly personService: PersonService) {}
+@ApiTags('公司荣誉模块')
+@Controller('unit')
+export class UnitController {
+  constructor(private readonly unitService: UnitService) {}
 
   @Post()
   @ApiOperation({
-    summary: '添加个人荣誉'
+    summary: '添加公司荣誉'
   })
-  create(@Body() createPersonDto: CreatePersonDto) {
+  create(@Body() createUnitDto: CreateUnitDto) {
     try {
-      return this.personService.create(createPersonDto);
+      return this.unitService.create(createUnitDto);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: 'person添加失败'
+        message: 'unit添加失败'
       });
     }
   }
 
   @Get('list')
   @ApiOperation({
-    summary: '获取person列表' // 接口描述信息
+    summary: '获取unit列表' // 接口描述信息
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
     try {
-      return this.personService.getPersonList(paginationsQuery);
+      return this.unitService.getPersonList(paginationsQuery);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
@@ -59,7 +59,7 @@ export class PersonController {
   })
   findOne(@Param('id') id: string) {
     try {
-      return this.personService.findOneById(+id);
+      return this.unitService.findOneById(+id);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
@@ -72,9 +72,9 @@ export class PersonController {
   @ApiOperation({
     summary: '根据id修改person' // 接口描述信息
   })
-  update(@Param('id') id: string, @Body() updatePersonDto: UpdatePersonDto) {
+  update(@Param('id') id: string, @Body() updateUnitDto: UpdateUnitDto) {
     try {
-      return this.personService.update(+id, updatePersonDto);
+      return this.unitService.update(+id, updateUnitDto);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
@@ -89,7 +89,7 @@ export class PersonController {
   })
   remove(@Param('id') id: string) {
     try {
-      return this.personService.remove(+id);
+      return this.unitService.remove(+id);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
