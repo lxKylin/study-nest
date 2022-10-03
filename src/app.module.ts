@@ -13,6 +13,7 @@ import { UploadModule } from './module/upload/upload.module';
 import { PersonModule } from './module/person/person.module';
 import { UnitModule } from './module/unit/unit.module';
 import { DatasModule } from './module/datas/datas.module';
+import { HomeAboutModule } from './module/home-about/home-about.module';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { DatasModule } from './module/datas/datas.module';
     UploadModule,
     PersonModule,
     UnitModule,
-    DatasModule
+    DatasModule,
+    HomeAboutModule
   ],
   providers: [AppService]
 })
