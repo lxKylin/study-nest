@@ -9,6 +9,10 @@ import { AuthModule } from './module/auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { AboutModule } from './module/about/about.module';
 import { ArticleModule } from './module/article/article.module';
+import { UploadModule } from './module/upload/upload.module';
+import { PersonModule } from './module/person/person.module';
+import { UnitModule } from './module/unit/unit.module';
+import { DatasModule } from './module/datas/datas.module';
 
 @Module({
   imports: [
@@ -32,7 +36,11 @@ import { ArticleModule } from './module/article/article.module';
     AuthModule,
     CommonModule,
     AboutModule,
-    ArticleModule
+    ArticleModule,
+    UploadModule,
+    PersonModule,
+    UnitModule,
+    DatasModule
   ],
   providers: [AppService]
 })
