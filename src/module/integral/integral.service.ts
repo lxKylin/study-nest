@@ -9,8 +9,10 @@ import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
 
 @Injectable()
 export class IntegralService {
-  @InjectRepository(Integral)
-  private readonly integralRepository: Repository<Integral>;
+  constructor(
+    @InjectRepository(Integral)
+    private readonly integralRepository: Repository<Integral>
+  ) {}
 
   async create(createIntegralDto: CreateIntegralDto) {
     const integral = await this.integralRepository.create({

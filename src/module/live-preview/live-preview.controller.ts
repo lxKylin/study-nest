@@ -8,95 +8,95 @@ import {
   Delete,
   Query
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { IntegralService } from './integral.service';
-import { CreateIntegralDto } from './dto/create-integral.dto';
-import { UpdateIntegralDto } from './dto/update-integral.dto';
+import { LivePreviewService } from './live-preview.service';
+import { CreateLivePreviewDto } from './dto/create-live-preview.dto';
+import { UpdateLivePreviewDto } from './dto/update-live-preview.dto';
 
 import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
 import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
 import { BusinessException } from '@/common/exceptions/business.exception';
 
-@ApiTags('年度积分模块')
-@Controller('integral')
-export class IntegralController {
-  constructor(private readonly integralService: IntegralService) {}
+@ApiTags('直播预告模块')
+@Controller('live-preview')
+export class LivePreviewController {
+  constructor(private readonly livePreviewService: LivePreviewService) {}
 
   @Post()
   @ApiOperation({
-    summary: '添加积分'
+    summary: '添加直播预告'
   })
-  create(@Body() createIntegralDto: CreateIntegralDto) {
+  create(@Body() createLivePreviewDto: CreateLivePreviewDto) {
     try {
-      return this.integralService.create(createIntegralDto);
+      return this.livePreviewService.create(createLivePreviewDto);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '积分添加失败'
+        message: '直播预告添加失败'
       });
     }
   }
 
   @Get('list')
   @ApiOperation({
-    summary: '获取积分列表' // 接口描述信息
+    summary: '获取直播预告列表'
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
     try {
-      return this.integralService.getIntegralList(paginationsQuery);
+      return this.livePreviewService.getLivePreviewList(paginationsQuery);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '获取积分列表失败'
+        message: '获取直播预告列表失败'
       });
     }
   }
 
   @Get(':id')
   @ApiOperation({
-    summary: '根据id获取积分' // 接口描述信息
+    summary: '根据id获得直播预告'
   })
   findOne(@Param('id') id: string) {
     try {
-      return this.integralService.findOneById(+id);
+      return this.livePreviewService.findOneById(+id);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '获取积分失败'
+        message: '获取直播预告失败'
       });
     }
   }
 
   @Patch(':id')
   @ApiOperation({
-    summary: '根据id修改积分' // 接口描述信息
+    summary: '根据id更新直播预告'
   })
   update(
     @Param('id') id: string,
-    @Body() updateIntegralDto: UpdateIntegralDto
+    @Body() updateLivePreviewDto: UpdateLivePreviewDto
   ) {
     try {
-      return this.integralService.update(+id, updateIntegralDto);
+      return this.livePreviewService.update(+id, updateLivePreviewDto);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '修改积分失败'
+        message: '修改直播预告失败'
       });
     }
   }
 
   @Delete(':id')
   @ApiOperation({
-    summary: '根据id删除积分' // 接口描述信息
+    summary: '根据id删除直播预告'
   })
   remove(@Param('id') id: string) {
     try {
-      return this.integralService.remove(+id);
+      return this.livePreviewService.remove(+id);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '删除积分失败'
+        message: '删除直播预告失败'
       });
     }
   }

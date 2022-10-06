@@ -9,7 +9,9 @@ import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
 
 @Injectable()
 export class DatasService {
-  @InjectRepository(Data) private readonly dataRepository: Repository<Data>;
+  constructor(
+    @InjectRepository(Data) private readonly dataRepository: Repository<Data>
+  ) {}
 
   async create(createDataDto: CreateDataDto) {
     const data = await this.dataRepository.create({ ...createDataDto });

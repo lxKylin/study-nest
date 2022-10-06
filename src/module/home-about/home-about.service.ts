@@ -9,8 +9,10 @@ import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
 
 @Injectable()
 export class HomeAboutService {
-  @InjectRepository(HomeAbout)
-  private readonly homeAboutRepository: Repository<HomeAbout>;
+  constructor(
+    @InjectRepository(HomeAbout)
+    private readonly homeAboutRepository: Repository<HomeAbout>
+  ) {}
 
   async create(createHomeAboutDto: CreateHomeAboutDto) {
     const homeAbout = await this.homeAboutRepository.create({

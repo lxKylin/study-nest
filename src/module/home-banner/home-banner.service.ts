@@ -9,8 +9,10 @@ import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
 
 @Injectable()
 export class HomeBannerService {
-  @InjectRepository(HomeBanner)
-  private readonly homeBannerRepository: Repository<HomeBanner>;
+  constructor(
+    @InjectRepository(HomeBanner)
+    private readonly homeBannerRepository: Repository<HomeBanner>
+  ) {}
 
   async create(createHomeBannerDto: CreateHomeBannerDto) {
     const banner = await this.homeBannerRepository.create({

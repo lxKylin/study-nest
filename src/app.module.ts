@@ -16,6 +16,7 @@ import { DatasModule } from './module/datas/datas.module';
 import { HomeAboutModule } from './module/home-about/home-about.module';
 import { HomeBannerModule } from './module/home-banner/home-banner.module';
 import { IntegralModule } from './module/integral/integral.module';
+import { LivePreviewModule } from './module/live-preview/live-preview.module';
 
 @Module({
   imports: [
@@ -46,7 +47,8 @@ import { IntegralModule } from './module/integral/integral.module';
     DatasModule,
     HomeAboutModule,
     HomeBannerModule,
-    IntegralModule
+    IntegralModule,
+    LivePreviewModule
   ],
   providers: [AppService]
 })
