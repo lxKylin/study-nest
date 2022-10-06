@@ -15,6 +15,7 @@ import { UnitModule } from './module/unit/unit.module';
 import { DatasModule } from './module/datas/datas.module';
 import { HomeAboutModule } from './module/home-about/home-about.module';
 import { HomeBannerModule } from './module/home-banner/home-banner.module';
+import { IntegralModule } from './module/integral/integral.module';
 
 @Module({
   imports: [
@@ -44,7 +45,8 @@ import { HomeBannerModule } from './module/home-banner/home-banner.module';
     UnitModule,
     DatasModule,
     HomeAboutModule,
-    HomeBannerModule
+    HomeBannerModule,
+    IntegralModule
   ],
   providers: [AppService]
 })
