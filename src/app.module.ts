@@ -17,6 +17,7 @@ import { HomeAboutModule } from './module/home-about/home-about.module';
 import { HomeBannerModule } from './module/home-banner/home-banner.module';
 import { IntegralModule } from './module/integral/integral.module';
 import { LivePreviewModule } from './module/live-preview/live-preview.module';
+import { NewsBannerModule } from './module/news-banner/news-banner.module';
 
 @Module({
   imports: [
@@ -48,7 +49,8 @@ import { LivePreviewModule } from './module/live-preview/live-preview.module';
     HomeAboutModule,
     HomeBannerModule,
     IntegralModule,
-    LivePreviewModule
+    LivePreviewModule,
+    NewsBannerModule
   ],
   providers: [AppService]
 })
