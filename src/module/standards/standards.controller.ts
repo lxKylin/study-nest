@@ -10,90 +10,93 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { NoticeService } from './notice.service';
-import { CreateNoticeDto } from './dto/create-notice.dto';
-import { UpdateNoticeDto } from './dto/update-notice.dto';
+import { StandardsService } from './standards.service';
+import { CreateStandardDto } from './dto/create-standard.dto';
+import { UpdateStandardDto } from './dto/update-standard.dto';
 
 import { PaginationQueryDto } from '@/common/dto/pagination-query.dto';
 import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
 import { BusinessException } from '@/common/exceptions/business.exception';
 
-@ApiTags('要闻动态模块')
-@Controller('notice')
-export class NoticeController {
-  constructor(private readonly noticeService: NoticeService) {}
+@ApiTags('标准规范模块')
+@Controller('standards')
+export class StandardsController {
+  constructor(private readonly standardsService: StandardsService) {}
 
   @Post()
   @ApiOperation({
-    summary: '添加要闻动态'
+    summary: '添加标准规范'
   })
-  create(@Body() createNoticeDto: CreateNoticeDto) {
+  create(@Body() createStandardDto: CreateStandardDto) {
     try {
-      return this.noticeService.create(createNoticeDto);
+      return this.standardsService.create(createStandardDto);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '要闻动态添加失败'
+        message: '标准规范添加失败'
       });
     }
   }
 
   @Get('list')
   @ApiOperation({
-    summary: '获取要闻动态列表'
+    summary: '获取标准规范列表'
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
     try {
-      return this.noticeService.getNoticeList(paginationsQuery);
+      return this.standardsService.getNoticeList(paginationsQuery);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '获取要闻动态列表失败'
+        message: '获取标准规范列表失败'
       });
     }
   }
 
   @Get(':id')
   @ApiOperation({
-    summary: '根据id获得要闻动态'
+    summary: '根据id获得标准规范'
   })
   findOne(@Param('id') id: string) {
     try {
-      return this.noticeService.findOneById(+id);
+      return this.standardsService.findOneById(+id);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '获取要闻动态失败'
+        message: '获取标准规范失败'
       });
     }
   }
 
   @Patch(':id')
   @ApiOperation({
-    summary: '根据id更新要闻动态'
+    summary: '根据id更新标准规范'
   })
-  update(@Param('id') id: string, @Body() updateNoticeDto: UpdateNoticeDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateStandardDto: UpdateStandardDto
+  ) {
     try {
-      return this.noticeService.update(+id, updateNoticeDto);
+      return this.standardsService.update(+id, updateStandardDto);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '修改要闻动态失败'
+        message: '修改标准规范失败'
       });
     }
   }
 
   @Delete(':id')
   @ApiOperation({
-    summary: '根据id删除要闻动态'
+    summary: '根据id删除标准规范'
   })
   remove(@Param('id') id: string) {
     try {
-      return this.noticeService.remove(+id);
+      return this.standardsService.remove(+id);
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '删除要闻动态失败'
+        message: '删除标准规范失败'
       });
     }
   }

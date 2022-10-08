@@ -19,6 +19,7 @@ import { IntegralModule } from './module/integral/integral.module';
 import { LivePreviewModule } from './module/live-preview/live-preview.module';
 import { NewsBannerModule } from './module/news-banner/news-banner.module';
 import { NoticeModule } from './module/notice/notice.module';
+import { StandardsModule } from './module/standards/standards.module';
 
 @Module({
   imports: [
@@ -52,7 +53,8 @@ import { NoticeModule } from './module/notice/notice.module';
     IntegralModule,
     LivePreviewModule,
     NewsBannerModule,
-    NoticeModule
+    NoticeModule,
+    StandardsModule
   ],
   providers: [AppService]
 })
