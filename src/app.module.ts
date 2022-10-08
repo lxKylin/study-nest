@@ -20,6 +20,7 @@ import { LivePreviewModule } from './module/live-preview/live-preview.module';
 import { NewsBannerModule } from './module/news-banner/news-banner.module';
 import { NoticeModule } from './module/notice/notice.module';
 import { StandardsModule } from './module/standards/standards.module';
+import { UnitDownloadModule } from './module/unit-download/unit-download.module';
 
 @Module({
   imports: [
@@ -54,7 +55,8 @@ import { StandardsModule } from './module/standards/standards.module';
     LivePreviewModule,
     NewsBannerModule,
     NoticeModule,
-    StandardsModule
+    StandardsModule,
+    UnitDownloadModule
   ],
   providers: [AppService]
 })
