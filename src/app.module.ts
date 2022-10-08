@@ -21,6 +21,7 @@ import { NewsBannerModule } from './module/news-banner/news-banner.module';
 import { NoticeModule } from './module/notice/notice.module';
 import { StandardsModule } from './module/standards/standards.module';
 import { UnitDownloadModule } from './module/unit-download/unit-download.module';
+import { UnitProductModule } from './module/unit-product/unit-product.module';
 
 @Module({
   imports: [
@@ -56,7 +57,8 @@ import { UnitDownloadModule } from './module/unit-download/unit-download.module'
     NewsBannerModule,
     NoticeModule,
     StandardsModule,
-    UnitDownloadModule
+    UnitDownloadModule,
+    UnitProductModule
   ],
   providers: [AppService]
 })
