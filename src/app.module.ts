@@ -18,6 +18,7 @@ import { HomeBannerModule } from './module/home-banner/home-banner.module';
 import { IntegralModule } from './module/integral/integral.module';
 import { LivePreviewModule } from './module/live-preview/live-preview.module';
 import { NewsBannerModule } from './module/news-banner/news-banner.module';
+import { NoticeModule } from './module/notice/notice.module';
 
 @Module({
   imports: [
@@ -50,7 +51,8 @@ import { NewsBannerModule } from './module/news-banner/news-banner.module';
     HomeBannerModule,
     IntegralModule,
     LivePreviewModule,
-    NewsBannerModule
+    NewsBannerModule,
+    NoticeModule
   ],
   providers: [AppService]
 })
