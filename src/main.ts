@@ -7,9 +7,17 @@ import { TransformInterceptor } from './common/interceptors/transform.intercepto
 
 import { generateDocument } from './swagger';
 
+import { NestExpressApplication } from '@nestjs/platform-express';
+
 async function bootstrap() {
   // 创建nest应用 （引入根模块）
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // 配置 public 文件夹为静态目录，以达到可直接访问下面文件的目的
+  // path.join(__dirname, '../public/picture')
+  app.useStaticAssets('public', {
+    prefix: '/api/upload/public'
+  });
 
   // 设置全局路由前缀
   app.setGlobalPrefix('api');

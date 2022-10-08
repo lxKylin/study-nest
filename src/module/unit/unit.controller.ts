@@ -48,14 +48,14 @@ export class UnitController {
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '获取person列表失败'
+        message: '获取unit列表失败'
       });
     }
   }
 
   @Get(':id')
   @ApiOperation({
-    summary: '根据id获取person' // 接口描述信息
+    summary: '根据id获取unit' // 接口描述信息
   })
   findOne(@Param('id') id: string) {
     try {
@@ -63,14 +63,14 @@ export class UnitController {
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '获取person失败'
+        message: '获取unit失败'
       });
     }
   }
 
   @Patch(':id')
   @ApiOperation({
-    summary: '根据id修改person' // 接口描述信息
+    summary: '根据id修改unit' // 接口描述信息
   })
   update(@Param('id') id: string, @Body() updateUnitDto: UpdateUnitDto) {
     try {
@@ -78,14 +78,14 @@ export class UnitController {
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '修改person失败'
+        message: '修改unit失败'
       });
     }
   }
 
   @Delete(':id')
   @ApiOperation({
-    summary: '根据id删除person' // 接口描述信息
+    summary: '根据id删除unit' // 接口描述信息
   })
   remove(@Param('id') id: string) {
     try {
@@ -93,7 +93,7 @@ export class UnitController {
     } catch (error) {
       throw new BusinessException({
         code: BUSINESS_ERROR_CODE.COMMON,
-        message: '删除person失败'
+        message: '删除unit失败'
       });
     }
   }
