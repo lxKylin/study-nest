@@ -22,6 +22,7 @@ import { NoticeModule } from './module/notice/notice.module';
 import { StandardsModule } from './module/standards/standards.module';
 import { UnitDownloadModule } from './module/unit-download/unit-download.module';
 import { UnitProductModule } from './module/unit-product/unit-product.module';
+import { UnitSolutionModule } from './module/unit-solution/unit-solution.module';
 
 @Module({
   imports: [
@@ -58,7 +59,8 @@ import { UnitProductModule } from './module/unit-product/unit-product.module';
     NoticeModule,
     StandardsModule,
     UnitDownloadModule,
-    UnitProductModule
+    UnitProductModule,
+    UnitSolutionModule
   ],
   providers: [AppService]
 })
