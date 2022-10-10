@@ -1,16 +1,17 @@
-
+## 连接本地数据库
+- 根据`.env`文件中的内容，在`MySQL`数据库中新建`ccia-nest`数据库（也可修改为其他名字，`.env`文件中的名字也需要修改）
 
 ## Installation
 
 ```bash
-$ yarn install
+yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ yarn start
+yarn start
 ```
 
 ## .env文件
