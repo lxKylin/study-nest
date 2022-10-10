@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class UnitProduct {
+export class UnitMoment {
   // 主键装饰器，也会进行自增
   @PrimaryGeneratedColumn()
   id: number;
@@ -17,22 +17,27 @@ export class UnitProduct {
   unit_id: string;
 
   @Column()
-  logo: string;
+  left_top: string;
 
   @Column()
-  image: string;
-
-  @Column({ length: 100 })
-  abbreviation: string;
+  left_top_img: string;
 
   @Column()
-  name: string;
+  bottom_left: string;
 
   @Column()
-  about: string;
+  bottom_left_img: string;
 
   @Column()
-  link: string;
+  bottom_right: string;
+
+  @Column()
+  bottom_right_img: string;
+  @Column()
+  right_title: string;
+
+  @Column()
+  right_img: string;
 
   @CreateDateColumn()
   createAt: Date;

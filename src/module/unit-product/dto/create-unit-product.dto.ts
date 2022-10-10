@@ -12,7 +12,7 @@ export class CreateUnitProductDto {
   @ApiProperty({ description: '简称' })
   abbreviation: string;
   @ApiProperty({ description: '产品名称' })
-  name: boolean;
+  name: string;
   @ApiProperty({ description: '简介' })
   about: string;
   @ApiProperty({ description: '官网链接' })

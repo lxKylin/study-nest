@@ -24,6 +24,7 @@ import { UnitDownloadModule } from './module/unit-download/unit-download.module'
 import { UnitProductModule } from './module/unit-product/unit-product.module';
 import { UnitSolutionModule } from './module/unit-solution/unit-solution.module';
 import { UnitAllModule } from './module/unit-all/unit-all.module';
+import { UnitMomentModule } from './module/unit-moment/unit-moment.module';
 
 @Module({
   imports: [
@@ -62,7 +63,8 @@ import { UnitAllModule } from './module/unit-all/unit-all.module';
     UnitDownloadModule,
     UnitProductModule,
     UnitSolutionModule,
-    UnitAllModule
+    UnitAllModule,
+    UnitMomentModule
   ],
   providers: [AppService]
 })
