@@ -23,6 +23,7 @@ import { StandardsModule } from './module/standards/standards.module';
 import { UnitDownloadModule } from './module/unit-download/unit-download.module';
 import { UnitProductModule } from './module/unit-product/unit-product.module';
 import { UnitSolutionModule } from './module/unit-solution/unit-solution.module';
+import { UnitAllModule } from './module/unit-all/unit-all.module';
 
 @Module({
   imports: [
@@ -60,7 +61,8 @@ import { UnitSolutionModule } from './module/unit-solution/unit-solution.module'
     StandardsModule,
     UnitDownloadModule,
     UnitProductModule,
-    UnitSolutionModule
+    UnitSolutionModule,
+    UnitAllModule
   ],
   providers: [AppService]
 })
