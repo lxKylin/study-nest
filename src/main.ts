@@ -31,8 +31,8 @@ async function bootstrap() {
   // 创建swagger文档
   generateDocument(app);
 
-  await app.listen(9527, () => {
-    console.log(`项目运行在http:localhost:9527/api`);
+  await app.listen(+process.env.SERVICE_PORT, () => {
+    console.log(`项目运行在http:localhost:${process.env.SERVICE_PORT}/api`);
   });
 }
 bootstrap();

@@ -16,13 +16,14 @@ import { User } from '@/module/user/entities/user.entity';
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    UserModule,
     PassportModule,
+    // PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: process.env.JWT_KEY,
-      signOptions: { expiresIn: '1h' }
+      signOptions: { expiresIn: '8h' }
     }),
-    TypeOrmModule.forFeature([User])
+    TypeOrmModule.forFeature([User]),
+    UserModule
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],

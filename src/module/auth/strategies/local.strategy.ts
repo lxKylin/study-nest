@@ -12,10 +12,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
+  // 登录时进行了本地身份验证
   async validate(username: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(username, password);
+
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('账号或密码错误！');
     }
     return user;
   }

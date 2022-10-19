@@ -11,8 +11,8 @@ import {
   ClassSerializerInterceptor,
   UseGuards
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-
+import { ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -49,12 +49,15 @@ export class UserController {
   }
 
   @Get('list')
-  // @UseGuards(JwtAuthGuard) // 验证token
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard) // 验证token
+  // @UseGuards(AuthGuard('jwt'))
   @ApiOperation({
     summary: '获取user列表'
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
     try {
+      console.log(paginationsQuery, 'paginationsQuery');
       return this.userService.getUserList(paginationsQuery);
     } catch (error) {
       throw new BusinessException({

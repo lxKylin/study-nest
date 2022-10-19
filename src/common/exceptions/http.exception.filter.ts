@@ -1,8 +1,5 @@
 // HTTP类型接口相关异常 -> 异常过滤器
 // http.exception.filter.ts => Catch 的参数为 HttpException 将只捕获 HTTP 相关的异常错误
-// fastify:
-// import { FastifyReply, FastifyRequest } from 'fastify';
-// express:
 import { Response, Request } from 'express';
 
 import {
@@ -45,7 +42,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
      */
     if (exception instanceof BusinessException) {
       const error = exception.getResponse();
-      response.status(HttpStatus.OK).send({
+      // status(HttpStatus.OK)
+      response.status(error['code']).send({
         data: null,
         status: error['code'],
         extra: {},
@@ -55,8 +53,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
       return;
     }
 
+    const error = exception.getResponse();
     response.status(status).json({
       statusCode: status,
+      message: error['message'],
       timestamp: new Date().toISOString(),
       path: request.url
     });

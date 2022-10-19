@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { UserService } from '@/module/user/user.service';
 import { md5password } from '@/utils/password-handle';
@@ -18,11 +18,14 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
+  async findOneById(id: number) {
+    return await this.userRepository.findOneBy({ id });
+  }
+
   // 验证用户是否存在
-  async validateUser(username: string, pass: string): Promise<any> {
+  async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userService.findOneByUserName(username);
-    if (user && user.password === md5password(pass)) {
-      // const { password, ...result } = user;
+    if (user && user.password === md5password(password)) {
       return user;
     }
     throw new BusinessException('用户名或密码错误');
@@ -41,16 +44,27 @@ export class AuthService {
     throw new BusinessException('用户名或密码错误');
   }
 
+  // 处理jwt签证
   async login(user: any) {
     const result = await this.validateUser(user.username, user.password);
     // const result = await this.checkLogin(user);
     const payload = { id: result.id, username: result.username };
     // const payload = { id: user.id, username: user.username };
-    console.log(payload);
 
     return {
       message: '登录成功！',
+      username: user.username,
       token: this.jwtService.sign(payload)
     };
+  }
+
+  // 校验token
+  async verifyToken(token: string) {
+    if (token) {
+      const jwt = token.replace('Bearer', '');
+      const id = this.jwtService.verify(jwt);
+      return id;
+    }
+    throw new BusinessException('token不存在！');
   }
 }

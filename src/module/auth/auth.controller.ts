@@ -23,18 +23,14 @@ import { BusinessException } from '@/common/exceptions/business.exception';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // @UseGuards(AuthGuard('local'))
-  // @Post('auth/login')
-  // async login(@Request() req) {
-  //   return req.user;
-  // }
-  @UseGuards(LocalAuthGuard)
-  @ApiBody({ type: CreateUserDto })
   @Post('login')
+  @UseGuards(LocalAuthGuard) // 启用本地身份验证
+  @ApiBody({ type: CreateUserDto })
   @ApiOperation({
-    summary: '登录' // 接口描述信息
+    summary: '登录'
   })
   async login(@Body() loginBody: CreateUserDto) {
+    console.log('1、请求登陆', loginBody);
     try {
       return await this.authService.login(loginBody);
     } catch (error) {
@@ -44,15 +40,11 @@ export class AuthController {
       });
     }
   }
-  // async login(@Request() req) {
-  //   // console.log('login', req); // 缺密码
-  //   return await this.authService.login(req.user);
-  // }
 
   @UseGuards(JwtAuthGuard) // 验证token
   // @UseGuards(AuthGuard('jwt'))
   @Get('profile')
-  getProfile(@Request() req) {
+  async getProfile(@Request() req) {
     console.log(req);
     return req.user;
   }
