@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import { md5password } from '@/utils/password-handle';
 import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
 import { BusinessException } from '@/common/exceptions/business.exception';
-import { UserService } from '@/module/user/user.service';
+import { UserService } from '@/services/user.service';
 
 @Injectable()
 export class LoginMiddleware implements NestMiddleware {
