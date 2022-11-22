@@ -1,13 +1,16 @@
 import {
   Entity,
   Column,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm';
 
+import { Classify } from './classify.entity';
+
 // @Entity()装饰器自动从所有类生成一个SQL表，以及他们包含的元数据
-// @Entity('users') // sql表名为users
 @Entity() // sql表名为article
 export class Article {
   // 主键装饰器，也会进行自增
@@ -22,8 +25,11 @@ export class Article {
   @Column({ length: 100 })
   author: string;
 
-  @Column({ length: 100 })
-  classify: string;
+  @JoinTable({ name: 'article_classify' })
+  @ManyToMany((type) => Classify, (classify) => classify.articles, {
+    cascade: true
+  })
+  classify: Classify[];
 
   @Column('text', { nullable: true })
   image: string;
@@ -36,9 +42,6 @@ export class Article {
 
   @Column('text')
   article: string;
-
-  @Column({ length: 255 })
-  link: string;
 
   @CreateDateColumn()
   createAt: Date;

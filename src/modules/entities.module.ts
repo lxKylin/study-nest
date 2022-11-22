@@ -20,6 +20,7 @@ import { UnitProduct } from '@/entities/unit-product.entity';
 import { UnitSolution } from '@/entities/unit-solution.entity';
 import { Picture } from '@/entities/picture.entity';
 import { File } from '@/entities/file.entity';
+import { Classify } from '@/entities/classify.entity';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { File } from '@/entities/file.entity';
       UnitProduct,
       UnitSolution,
       Picture,
-      File
+      File,
+      Classify
     ])
   ],
   exports: [TypeOrmModule]

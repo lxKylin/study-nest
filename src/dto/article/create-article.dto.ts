@@ -1,6 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsString, IsNotEmpty, IsBoolean } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsBoolean,
+  ArrayNotEmpty
+} from 'class-validator';
 
 // 自己设置类型
 export class CreateArticleDto {
@@ -15,13 +20,12 @@ export class CreateArticleDto {
   @IsString()
   author: string;
 
-  @ApiProperty({ description: '分类' })
+  @ApiProperty({ description: '分类', default: ['Kylin'] })
   @IsNotEmpty()
-  @IsString()
-  classify: string;
+  @ArrayNotEmpty()
+  classify: string[];
 
   @ApiProperty({ description: '封面图片' })
-  @IsNotEmpty()
   @IsString()
   image: string;
 
@@ -39,9 +43,4 @@ export class CreateArticleDto {
   @IsNotEmpty()
   @IsString()
   article: string;
-
-  @ApiProperty({ description: '文章链接' })
-  @IsNotEmpty()
-  @IsString()
-  link: string;
 }
