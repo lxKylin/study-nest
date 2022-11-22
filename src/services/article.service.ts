@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 
@@ -18,6 +18,10 @@ export class ArticleService {
     const article = await this.articleRepository.create({
       ...createArticleDto
     });
+    const { title } = article;
+    if (!title) {
+      throw new HttpException('缺少文章标题', 401);
+    }
     return await this.articleRepository.save(article);
   }
 

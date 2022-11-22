@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from '@/modules/app.module';
 
 import { AllExceptionsFilter } from './common/exceptions/base.exception.filter';
@@ -27,6 +28,9 @@ async function bootstrap() {
 
   // 异常过滤器 useGlobalFilters 全局异常过滤器
   app.useGlobalFilters(new AllExceptionsFilter(), new HttpExceptionFilter());
+
+  // 全局应用管道 对输入数据进行转换或者验证
+  app.useGlobalPipes(new ValidationPipe());
 
   // 创建swagger文档
   generateDocument(app);

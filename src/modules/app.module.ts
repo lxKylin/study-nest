@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 // 环境配置相关
 import { ConfigModule } from '@nestjs/config';
 
+import * as path from 'path';
+
 import { AboutController } from '@/controllers/about.controller';
 import { AboutService } from '@/services/about.service';
 import { ArticleController } from '@/controllers/article.controller';
@@ -56,8 +58,8 @@ import { EntitiesModule } from '@/modules/entities.module';
         username: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
-        autoLoadEntities: true, // 自动加载模块
-        // entities: [User],
+        autoLoadEntities: true, // 自动加载模块 推荐
+        // entities: [path.join(__dirname, '/../**/*.entity{.ts,.js}')], // 不推荐
         synchronize: true // 开启同步，生产中要禁止
       })
     }),

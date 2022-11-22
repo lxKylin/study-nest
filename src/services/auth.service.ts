@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { UserService } from '@/services/user.service';
 import { md5password } from '@/utils/password-handle';
 import { BusinessException } from '@/common/exceptions/business.exception';
-import { CreateUserDto } from '@/dto/user/create-user.dto';
+import { LoginUserDto } from '@/dto/user/login-user.dto';
 import { User } from '@/entities/user.entity';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class AuthService {
     throw new BusinessException('用户名或密码错误');
   }
 
-  async checkLogin(loginBody: CreateUserDto) {
+  async checkLogin(loginBody: LoginUserDto) {
     const { username, password } = loginBody;
     const user = await this.userRepository.findOne({ where: { username } });
     // if (!user) {

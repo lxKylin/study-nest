@@ -1,19 +1,19 @@
 import {
   Controller,
-  Get,
-  Request,
+  // Get,
+  // Request,
   Post,
   UseGuards,
   Body
 } from '@nestjs/common';
 // passport内置守卫
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { LocalAuthGuard } from '@/auth/guards/local-auth.guard';
-import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+// import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
 import { AuthService } from '@/services/auth.service';
-import { CreateUserDto } from '@/dto/user/create-user.dto';
+import { LoginUserDto } from '@/dto/user/Login-user.dto';
 
 import { BUSINESS_ERROR_CODE } from '@/common/exceptions/business.error.codes';
 import { BusinessException } from '@/common/exceptions/business.exception';
@@ -25,11 +25,11 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard) // 启用本地身份验证
-  @ApiBody({ type: CreateUserDto })
+  @ApiBody({ type: LoginUserDto })
   @ApiOperation({
     summary: '登录'
   })
-  async login(@Body() loginBody: CreateUserDto) {
+  async login(@Body() loginBody: LoginUserDto) {
     console.log('1、请求登陆', loginBody);
     try {
       return await this.authService.login(loginBody);
@@ -39,13 +39,5 @@ export class AuthController {
         message: '登录失败'
       });
     }
-  }
-
-  @UseGuards(JwtAuthGuard) // 验证token
-  // @UseGuards(AuthGuard('jwt'))
-  @Get('profile')
-  async getProfile(@Request() req) {
-    console.log(req);
-    return req.user;
   }
 }

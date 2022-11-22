@@ -29,7 +29,7 @@ export class UserController {
   // 依赖注入的方式，引入service
   constructor(private readonly userService: UserService) {}
 
-  @Post()
+  @Post('create')
   @ApiOperation({
     summary: '添加用户' // 接口描述信息
   })
@@ -57,7 +57,6 @@ export class UserController {
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
     try {
-      console.log(paginationsQuery, 'paginationsQuery');
       return this.userService.getUserList(paginationsQuery);
     } catch (error) {
       throw new BusinessException({
@@ -67,7 +66,7 @@ export class UserController {
     }
   }
 
-  @Get(':id')
+  @Get('list/:id')
   @ApiOperation({
     summary: '根据id获取user'
   })
@@ -82,7 +81,7 @@ export class UserController {
     }
   }
 
-  @Patch(':id')
+  @Patch('list/:id')
   @ApiOperation({
     summary: '根据id修改user'
   })
@@ -97,7 +96,7 @@ export class UserController {
     }
   }
 
-  @Delete(':id')
+  @Delete('list/:id')
   @ApiOperation({
     summary: '根据id删除user'
   })

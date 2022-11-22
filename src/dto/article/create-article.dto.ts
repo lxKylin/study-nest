@@ -6,7 +6,7 @@ import { IsString, IsNotEmpty, IsBoolean } from 'class-validator';
 export class CreateArticleDto {
   //ApiProperty是对数据类型的描述
   @ApiProperty({ description: '标题' })
-  @IsNotEmpty()
+  @IsNotEmpty({ message: '文章标题是必填的' })
   @IsString()
   title: string;
 

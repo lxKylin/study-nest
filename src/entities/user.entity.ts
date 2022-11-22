@@ -1,11 +1,15 @@
 import {
   Entity,
   Column,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+
+import { Role } from './role.entity';
 
 // @Entity()装饰器自动从所有类生成一个SQL表，以及他们包含的元数据
 // @Entity('users') // sql表名为users
@@ -24,6 +28,18 @@ export class User {
   // @Column('json', { nullable: true }) json格式且可为空
   @Column()
   password: string;
+
+  // 定义与其他表的关系
+  // name 用于指定创中间表的表名
+  @JoinTable({ name: 'user_roles' })
+  // 指定多对多关系
+  /**
+   * 关系类型，返回相关实体引用
+   * cascade: true，插入和更新启用级联，也可设置为仅插入或仅更新
+   * ['insert']
+   */
+  @ManyToMany((type) => Role, (role) => role.users, { cascade: true })
+  roles: Role[];
 
   @CreateDateColumn()
   createAt: Date;

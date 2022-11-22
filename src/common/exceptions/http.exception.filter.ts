@@ -29,10 +29,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
    * @param host 一个 ArgumentsHost 对象，是一个功能强大的实用程序对象，使用它来获取对 Request 和 Response 对象的引用
    */
   catch(exception: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
+    const ctx = host.switchToHttp(); // 获取请求上下文
+    const response = ctx.getResponse<Response>(); // 获取请求上下文中的 response对象
     const request = ctx.getRequest<Request>();
-    const status = exception.getStatus();
+    const status = exception.getStatus(); // 获取异常状态码
 
     // 处理业务异常
     /**

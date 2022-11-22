@@ -10,6 +10,7 @@ export class UserMiddleware implements NestMiddleware {
   constructor(private readonly userService: UserService) {}
   async use(req: Request, res: Response, next: NextFunction) {
     const { username, password } = req.body;
+    console.log(username, password, 'username, password');
     if (!username || !password) {
       throw new BusinessException('用户名或密码不能为空');
     }
