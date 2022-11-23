@@ -56,13 +56,20 @@ export class ArticleService {
   async getArticleList(paginationsQuery: PaginationQueryDto) {
     const { limit, offset } = paginationsQuery;
     return await this.articleRepository.find({
+      // 新的方式
+      relations: {
+        classify: true
+      },
       skip: offset,
       take: limit
     });
   }
 
   async findOneById(id: number) {
-    return await this.articleRepository.findOneBy({ id });
+    return await this.articleRepository.findOne({
+      where: { id },
+      relations: { classify: true }
+    });
   }
 
   async update(id: number, updateArticleDto: UpdateArticleDto) {

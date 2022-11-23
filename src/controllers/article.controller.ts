@@ -6,9 +6,13 @@ import {
   Patch,
   Param,
   Delete,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+
+import { JwtAuthGuard } from '@/auth/guards/jwt-auth.guard';
+import { RolesGuard, Roles } from '@/auth/guards/role.guard';
 
 import { ArticleService } from '@/services/article.service';
 import { CreateArticleDto } from '@/dto/article/create-article.dto';
@@ -27,6 +31,9 @@ export class ArticleController {
   @ApiOperation({
     summary: '添加文章'
   })
+  @ApiBearerAuth()
+  @Roles('admin', 'root')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   create(@Body() createArticleDto: CreateArticleDto) {
     try {
       return this.articleService.create(createArticleDto);

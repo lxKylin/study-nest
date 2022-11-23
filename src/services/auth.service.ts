@@ -19,7 +19,10 @@ export class AuthService {
   ) {}
 
   async findOneById(id: number) {
-    return await this.userRepository.findOneBy({ id });
+    return await this.userRepository.findOne({
+      where: { id },
+      relations: { roles: true }
+    });
   }
 
   // 验证用户是否存在
@@ -33,7 +36,10 @@ export class AuthService {
 
   async checkLogin(loginBody: LoginUserDto) {
     const { username, password } = loginBody;
-    const user = await this.userRepository.findOne({ where: { username } });
+    const user = await this.userRepository.findOne({
+      where: { username },
+      relations: { roles: true }
+    });
     // if (!user) {
     //   throw new BusinessException('用户名或密码错误');
     // }
@@ -47,8 +53,13 @@ export class AuthService {
   // 处理jwt签证
   async login(user: any) {
     const result = await this.validateUser(user.username, user.password);
+    // console.log(result, 'result');
     // const result = await this.checkLogin(user);
-    const payload = { id: result.id, username: result.username };
+    const payload = {
+      id: result.id,
+      username: result.username,
+      roles: result.roles
+    };
     // const payload = { id: user.id, username: user.username };
 
     return {

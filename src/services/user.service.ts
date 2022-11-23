@@ -38,32 +38,31 @@ export class UserService {
         message: '用户添加失败'
       });
     }
-    // const roles = await Promise.all(
-    //   createUserDto.roles.map((name) => this.preloadRoleByName(name))
-    // );
-
-    // console.log(roles, 'roles');
-
-    // const user = this.userRepository.create({ ...createUserDto, roles });
-    // console.log(user, 'user');
-    // return this.userRepository.save(user);
   }
 
   async getUserList(paginationsQuery: PaginationQueryDto) {
     const { limit, offset } = paginationsQuery;
     return await this.userRepository.find({
+      // 新的方式
+      relations: {
+        roles: true
+      },
       skip: offset,
       take: limit
     });
   }
 
   async findOneById(id: number) {
-    return await this.userRepository.findOneBy({ id });
+    return await this.userRepository.findOne({
+      where: { id },
+      relations: { roles: true }
+    });
   }
 
   async findOneByUserName(username: string) {
     return await this.userRepository.findOne({
-      where: { username }
+      where: { username },
+      relations: { roles: true }
     });
   }
 
