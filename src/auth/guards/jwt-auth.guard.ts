@@ -1,42 +1,51 @@
 import {
-  Injectable
-  // ExecutionContext,
-  // ForbiddenException,
-  // UnauthorizedException
+  Injectable,
+  ExecutionContext,
+  ForbiddenException,
+  UnauthorizedException
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-// import { AuthService } from '@/module/auth/auth.service';
+import { AuthService } from '@/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  // constructor(private readonly authService: AuthService) {
-  //   super();
-  // }
-  // request.user可获取user信息
-  // async getRequest(context: ExecutionContext) {
-  //   const ctx = context.switchToHttp();
-  //   // console.log(ctx.getResponse());
-  //   const request = ctx.getRequest();
-  //   console.log(request, 'request');
-  //   // const accessToken =
-  //   //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJLeWxpbiIsImlhdCI6MTY2NjA4NjE3NCwiZXhwIjoxNjY2MTE0OTc0fQ.eRBjeRu7wf9dwVRz-qdXpDQ3Ie07A0MbgDK66xkOXd8';
-  //   const accessToken = request.header('Authorization');
-  //   console.log(accessToken, 'Authorization');
-  //   if (!accessToken) {
+  constructor(private readonly authService: AuthService) {
+    super();
+  }
+  // canActivate(
+  //   context: ExecutionContext
+  // ): boolean | Promise<boolean> | Observable<boolean> {
+  //   const req = context.switchToHttp().getRequest();
+  //   const accessToken = req.header('Authorization');
+  //   if (accessToken) {
+  //     try {
+  //       const decoded = this.authService.verifyToken(accessToken);
+  //       console.log(decoded, 'decoded');
+  //       req.user = decoded;
+  //       return true;
+  //     } catch (err) {
+  //       console.log(err, 'err');
+  //       if (err.name === 'TokenExpiredError') {
+  //         throw new UnauthorizedException('Token has expired');
+  //       }
+  //       throw new UnauthorizedException('Invalid token');
+  //     }
+  //   } else {
   //     throw new ForbiddenException('请先登录');
   //   }
-  //   const userId = await this.authService.verifyToken(accessToken);
-  //   if (!userId) {
-  //     throw new UnauthorizedException('当前登录已过期，请重新登录');
-  //   }
-  //   return true;
   // }
-  // handleRequest<User>(err, user: User): User {
-  //   console.log(err, user, 'handleRequest');
-  //   if (err || !user) {
-  //     throw new UnauthorizedException('身份验证失败');
-  //   }
-  //   return user;
-  // }
+
+  /**
+   * 这个方法会在授权成功后被调用，并将用户信息作为参数传入。
+   * 如果授权失败，则会UnauthorizedException 异常
+   */
+  handleRequest<User>(err, user: User): User {
+    console.log(err, user, 'handleRequest');
+    if (err || !user) {
+      throw new UnauthorizedException('身份验证失败');
+    }
+    return user;
+  }
 }

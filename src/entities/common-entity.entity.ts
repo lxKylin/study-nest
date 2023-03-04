@@ -15,7 +15,7 @@ export class CommonEntity {
   @Column({ length: 100 })
   title: string;
 
-  // @Column('json', { nullable: true }) json格式且可为空
+  // // @Column('json', { nullable: true }) json格式且可为空
   @Column({ length: 100 })
   author: string;
 

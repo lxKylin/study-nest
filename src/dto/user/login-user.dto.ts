@@ -10,7 +10,7 @@ export class LoginUserDto {
   @IsString()
   username: string;
 
-  @ApiProperty({ description: '密码', default: 'siJue' })
+  @ApiProperty({ description: '密码', default: '123456' })
   @IsNotEmpty()
   @IsString()
   password: string;

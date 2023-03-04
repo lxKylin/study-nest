@@ -31,6 +31,7 @@ export class User {
 
   // 定义与其他表的关系
   // name 用于指定创中间表的表名
+  // JoinTable只在关系一边
   @JoinTable({ name: 'user_roles' })
   // 指定多对多关系
   /**
@@ -38,7 +39,7 @@ export class User {
    * cascade: true，插入和更新启用级联，也可设置为仅插入或仅更新
    * ['insert']
    */
-  @ManyToMany((type) => Role, (role) => role.users, { cascade: true })
+  @ManyToMany(() => Role, (role) => role.users, { cascade: true })
   roles: Role[];
 
   @CreateDateColumn()

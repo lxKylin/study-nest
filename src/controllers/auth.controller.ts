@@ -30,7 +30,7 @@ export class AuthController {
     summary: '登录'
   })
   async login(@Body() loginBody: LoginUserDto) {
-    console.log('1、请求登陆', loginBody);
+    console.log('2-请求登陆', loginBody);
     try {
       return await this.authService.login(loginBody);
     } catch (error) {

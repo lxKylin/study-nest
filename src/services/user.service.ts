@@ -43,10 +43,12 @@ export class UserService {
   async getUserList(paginationsQuery: PaginationQueryDto) {
     const { limit, offset } = paginationsQuery;
     return await this.userRepository.find({
-      // 新的方式
-      relations: {
-        roles: true
-      },
+      // 新的方式，指定关系才能查到roles
+      // 1
+      relations: ['roles'],
+      // relations: {
+      //   roles: true
+      // },
       skip: offset,
       take: limit
     });

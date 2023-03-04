@@ -56,6 +56,7 @@ export class UserController {
     summary: '获取user列表'
   })
   findAll(@Query() paginationsQuery: PaginationQueryDto) {
+    console.log(paginationsQuery, '5-进行接口请求');
     try {
       return this.userService.getUserList(paginationsQuery);
     } catch (error) {

@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { LoginMiddleware } from '@/middleware/login.middleware';
+import { AuthMiddleware } from '@/middleware/auth.middleware';
 import { UserMiddleware } from '@/middleware/user.middleware';
 import { HandlePasswordMiddleware } from '@/middleware/handlePassword.middleware';
 import { UserService } from '@/services/user.service';
@@ -27,6 +28,10 @@ export class CommonModule implements NestModule {
     consumer
       .apply(LoginMiddleware)
       .forRoutes({ path: 'auth/login', method: RequestMethod.POST });
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes({ path: 'user/list', method: RequestMethod.GET });
+    // consumer.apply(AuthMiddleware).forRoutes('*');
     consumer
       .apply(UserMiddleware, HandlePasswordMiddleware)
       .forRoutes({ path: 'user/create', method: RequestMethod.POST });

@@ -52,6 +52,7 @@ export class AuthService {
 
   // 处理jwt签证
   async login(user: any) {
+    console.log('3-处理jwt签证');
     const result = await this.validateUser(user.username, user.password);
     // console.log(result, 'result');
     // const result = await this.checkLogin(user);
@@ -71,6 +72,8 @@ export class AuthService {
 
   // 校验token
   async verifyToken(token: string) {
+    console.log('校验token');
+    console.log(token, 'token');
     if (token) {
       const jwt = token.replace('Bearer', '');
       const id = this.jwtService.verify(jwt);

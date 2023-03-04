@@ -21,14 +21,12 @@ export class RolesGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     // 获取路由角色
     const roles = this.reflector.get('roles', context.getHandler());
-    // console.log(roles, '获取路由角色');
     if (!roles) {
       return true;
     }
     // 读取user
     const req = context.switchToHttp().getRequest();
     const user = req.user;
-    console.log(user.roles);
     if (!user) {
       return false;
     }
